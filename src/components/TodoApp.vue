@@ -33,7 +33,7 @@
                 <td style="width: 100px" @click="editTodo(index)">
                     <span class="fa fa-pen"></span>
                 </td>
-                <td style="width: 100px" @click="delTodo(task.id)">
+                <td style="width: 100px" @click="delTodo(index)">
                     <span class="fa fa-trash"></span>
                 </td>
             </tr>
@@ -47,7 +47,7 @@
 export default {
     data(){
         return{
-            avaluateTodoStatus:['to-do','in-progress','finished'],
+            statuses:['to-do','in-progress','finished'],
             editedTask:null,
             newTask:'',
             tasks:[
@@ -69,18 +69,17 @@ export default {
                 this.editedTask = null
             }
         },
-        delTodo(id){
-            const newArr = this.tasks.filter((el) => el.id != id)
-            this.tasks = newArr
+        delTodo(index){
+            this.tasks.splice(index, 1);
         },
         editTodo(index){
             this.newTask = this.tasks[index].name
             this.editedTask = index
         },
         changeStatus(index){
-            let newIndex = this.avaluateTodoStatus.indexOf(this.tasks[index].status)
+            let newIndex = this.statuses.indexOf(this.tasks[index].status)
             if(++newIndex >2) newIndex = 0;
-            this.tasks[index].status = this.avaluateTodoStatus[newIndex]
+            this.tasks[index].status = this.statuses[newIndex]
         }
     }
 }
